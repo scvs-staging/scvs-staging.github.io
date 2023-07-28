@@ -9,7 +9,7 @@ module.exports = {
   icon: {
     touchicon: './src/assets/favicon.png'
   },
-  siteUrl: 'https://scvs.owasp.org',
+  siteUrl: 'https://scvs-staging.github.io',
   permalinks: {
     slugify: {
       use: '@sindresorhus/slugify',
