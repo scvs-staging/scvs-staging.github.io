@@ -9,7 +9,6 @@ function transformJSON(json, basePath = '')  {
         { "text": "Taxonomy", "data": { "id": "urn:owasp:scvs:bom" }, "children": []},
         { "text": "Profiles", "data": { "id": "profiles", "path": "/bom-maturity-model/profiles/" }, "children":
             [
-                { "text": "Profile Generator", "data": { "path": "/bom-maturity-model/profiles/profile-generator/" } },
                 { "text": "Examples", "data": { "id": "profiles-examples" }, "children":
                     [
                         { "text": "NTIA Minimum Elements", "data": { "path": "/bom-maturity-model/profiles/examples/ntia-minimum-elements/" }, state: { selectable: true } },
@@ -52,9 +51,11 @@ function transformJSON(json, basePath = '')  {
         let references = ""
         let referencesRow = "";
         if (model.references && model.references.length > 0) {
+            references+= '<ul style="list-style-type: none; padding-left:0">'
             for (let i=0; i<model.references.length; i++) {
-                references+= '<a href="' + model.references[i].url + '">' + model.references[i].title + '</a><br>'
+                references+= '<li><img src="/images/external-link.svg" width="24px" style="display:inline; margin-right:8px;" alt="External Link"><a href="' + model.references[i].url + '" target="_blank">' + model.references[i].title + '</a></li>'
             }
+            references+= '</ul>'
             referencesRow = "| **References**: | " + references + "|";
         }
 
@@ -80,6 +81,11 @@ sidebar: 'taxonomy'
 | **Difficulty**: | ${difficultyLabel} |
 ${referencesRow}
 
+<style>
+  td {
+    vertical-align:top
+  }
+</style>
 `;
     }
 
@@ -184,7 +190,7 @@ function duplicateCheck(json) {
 }
 
 console.log("Reading BOM Maturity Model Taxonomy")
-const jsonString = fs.readFileSync("../BOM_Maturity_Model/bom-maturity-model-1.0.0-beta.1.json");
+const jsonString = fs.readFileSync("../BOM_Maturity_Model/bom-maturity-model-1.0.0-rc.1.json");
 console.log("Parsing BOM Maturity Model Taxonomy")
 const originalJSON = JSON.parse(jsonString);
 duplicateCheck(originalJSON);
